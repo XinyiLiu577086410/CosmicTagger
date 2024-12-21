@@ -146,8 +146,9 @@ class distributed_trainer(torch_trainer):
         # Convert the input data to torch tensors
         if self.args.run.compute_mode == ComputeMode.GPU:
             if 'CUDA_VISIBLE_DEVICES' in os.environ:
-                # Then, it's manually set, use it
-                return torch.cuda.device(0)
+                # Then, it's manually set, use them
+                divice_list = os.environ['CUDA_VISIBLE_DEVICES'].split(',')
+                return torch.cuda.device(int(divice_list[int(self._local_rank)]))
             else:
                 return torch.cuda.device(int(self._local_rank))
         elif self.args.run.compute_mode == ComputeMode.XPU:
@@ -171,8 +172,9 @@ class distributed_trainer(torch_trainer):
 
         if self.args.run.compute_mode == ComputeMode.GPU:
             if 'CUDA_VISIBLE_DEVICES' in os.environ:
-                # Then, it's manually set, use it
-                return torch.device("cuda:0")
+                # Then, it's manually set, use them
+                divice_list = os.environ['CUDA_VISIBLE_DEVICES'].split(',')
+                return torch.device(f"cuda:{divice_list[int(self._local_rank)]}")
             else:
                 return torch.device(f"cuda:{self._local_rank}")
         elif self.args.run.compute_mode == ComputeMode.XPU:

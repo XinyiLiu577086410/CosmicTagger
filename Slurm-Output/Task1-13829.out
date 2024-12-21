@@ -1,0 +1,183 @@
+=============RUN SCRIPT=================
+#!/bin/bash
+#SBATCH --job-name=Task1
+#SBATCH --output=Slurm-Output/Task1-%j.out
+#SBATCH -N 3
+#SBATCH -n 192
+
+echo "=============RUN SCRIPT================="
+cat $0
+echo "========================================"
+
+source env.sh
+mpirun -n 192 -ppn 64 python bin/exec.py \
+		run.id=task1 mode=iotest run.iterations=100  \
+		+run.output_dir=CosmicTagger-Output/Task1 \
+		data.data_directory=./data/  \
+		run.minibatch_size=384
+
+========================================
+2024-12-21 16:44:37,672 - INFO - Dumping launch arguments.
+2024-12-21 16:44:37,673 - INFO - ['bin/exec.py', 'run.id=task1', 'mode=iotest', 'run.iterations=100', '+run.output_dir=CosmicTagger-Output/Task1', 'data.data_directory=./data/', 'run.minibatch_size=384', 'hydra/job_logging=disabled', 'hydra.output_subdir=null', 'hydra.job.chdir=False', 'hydra.run.dir=.', 'hydra/hydra_logging=disabled']
+2024-12-21 16:44:37,723 - INFO - Running IO Test
+2024-12-21 16:44:37,728 - INFO - 
+
+-- CONFIG --
+data: 
+  aux_file....................: cosmic_tagging_test.h5
+  data_directory..............: ./data/
+  data_format.................: channels_last
+  downsample..................: 1
+  file........................: cosmic_tagging_train.h5
+  img_transform...............: False
+  seed........................: 0
+  synthetic...................: False
+framework: 
+  inter_op_parallelism_threads: 2
+  intra_op_parallelism_threads: 24
+  name........................: tensorflow
+  seed........................: 0
+mode: 
+  name........................: iotest
+  no_summary_images...........: True
+  start_index.................: 0
+  weights_location............: 
+network: 
+  bias........................: True
+  block_concat................: False
+  blocks_deepest_layer........: 5
+  blocks_final................: 5
+  blocks_per_layer............: 2
+  bottleneck_deepest..........: 256
+  connections.................: concat
+  conv_mode...................: conv_2D
+  data_format.................: channels_last
+  depth.......................: 6
+  downsampling................: max_pooling
+  filter_size_deepest.........: 5
+  growth_rate.................: additive
+  n_initial_filters...........: 16
+  name........................: uresnet
+  normalization...............: batch
+  residual....................: True
+  upsampling..................: interpolation
+  weight_decay................: 0.1
+output_dir....................: output/tensorflow/uresnet/task1/
+run: 
+  aux_iterations..............: 10
+  broadcast_buffers...........: True
+  compute_mode................: GPU
+  distributed.................: True
+  horovod_num_groups..........: 0
+  id..........................: task1
+  iterations..................: 100
+  minibatch_size..............: 384
+  output_dir..................: CosmicTagger-Output/Task1
+  precision...................: float32
+  profile.....................: False
+  saver.......................: True
+
+2024-12-21 16:44:37,910 - INFO - Larcv file prepared
+2024-12-21 16:44:38,065 - INFO - 0: Time to fetch a minibatch of data: 0.05s
+2024-12-21 16:44:38,143 - INFO - 1: Time to fetch a minibatch of data: 0.08s
+2024-12-21 16:44:38,303 - INFO - 2: Time to fetch a minibatch of data: 0.16s
+2024-12-21 16:44:38,420 - INFO - 3: Time to fetch a minibatch of data: 0.12s
+2024-12-21 16:44:38,543 - INFO - 4: Time to fetch a minibatch of data: 0.12s
+2024-12-21 16:44:38,644 - INFO - 5: Time to fetch a minibatch of data: 0.10s
+2024-12-21 16:44:38,746 - INFO - 6: Time to fetch a minibatch of data: 0.10s
+2024-12-21 16:44:38,865 - INFO - 7: Time to fetch a minibatch of data: 0.11s
+2024-12-21 16:44:38,970 - INFO - 8: Time to fetch a minibatch of data: 0.11s
+2024-12-21 16:44:39,088 - INFO - 9: Time to fetch a minibatch of data: 0.10s
+2024-12-21 16:44:39,204 - INFO - 10: Time to fetch a minibatch of data: 0.10s
+2024-12-21 16:44:39,366 - INFO - 11: Time to fetch a minibatch of data: 0.15s
+2024-12-21 16:44:39,482 - INFO - 12: Time to fetch a minibatch of data: 0.12s
+2024-12-21 16:44:39,603 - INFO - 13: Time to fetch a minibatch of data: 0.12s
+2024-12-21 16:44:39,715 - INFO - 14: Time to fetch a minibatch of data: 0.11s
+2024-12-21 16:44:39,829 - INFO - 15: Time to fetch a minibatch of data: 0.11s
+2024-12-21 16:44:39,938 - INFO - 16: Time to fetch a minibatch of data: 0.11s
+2024-12-21 16:44:40,053 - INFO - 17: Time to fetch a minibatch of data: 0.11s
+2024-12-21 16:44:40,167 - INFO - 18: Time to fetch a minibatch of data: 0.11s
+2024-12-21 16:44:40,305 - INFO - 19: Time to fetch a minibatch of data: 0.14s
+2024-12-21 16:44:40,409 - INFO - 20: Time to fetch a minibatch of data: 0.10s
+2024-12-21 16:44:40,531 - INFO - 21: Time to fetch a minibatch of data: 0.12s
+2024-12-21 16:44:40,642 - INFO - 22: Time to fetch a minibatch of data: 0.11s
+2024-12-21 16:44:40,761 - INFO - 23: Time to fetch a minibatch of data: 0.12s
+2024-12-21 16:44:40,864 - INFO - 24: Time to fetch a minibatch of data: 0.10s
+2024-12-21 16:44:40,991 - INFO - 25: Time to fetch a minibatch of data: 0.11s
+2024-12-21 16:44:41,095 - INFO - 26: Time to fetch a minibatch of data: 0.10s
+2024-12-21 16:44:41,219 - INFO - 27: Time to fetch a minibatch of data: 0.12s
+2024-12-21 16:44:41,317 - INFO - 28: Time to fetch a minibatch of data: 0.10s
+2024-12-21 16:44:41,426 - INFO - 29: Time to fetch a minibatch of data: 0.11s
+2024-12-21 16:44:41,529 - INFO - 30: Time to fetch a minibatch of data: 0.10s
+2024-12-21 16:44:41,640 - INFO - 31: Time to fetch a minibatch of data: 0.11s
+2024-12-21 16:44:41,763 - INFO - 32: Time to fetch a minibatch of data: 0.10s
+2024-12-21 16:44:41,894 - INFO - 33: Time to fetch a minibatch of data: 0.12s
+2024-12-21 16:44:41,997 - INFO - 34: Time to fetch a minibatch of data: 0.10s
+2024-12-21 16:44:42,113 - INFO - 35: Time to fetch a minibatch of data: 0.12s
+2024-12-21 16:44:42,206 - INFO - 36: Time to fetch a minibatch of data: 0.09s
+2024-12-21 16:44:42,309 - INFO - 37: Time to fetch a minibatch of data: 0.10s
+2024-12-21 16:44:42,417 - INFO - 38: Time to fetch a minibatch of data: 0.11s
+2024-12-21 16:44:42,543 - INFO - 39: Time to fetch a minibatch of data: 0.13s
+2024-12-21 16:44:42,652 - INFO - 40: Time to fetch a minibatch of data: 0.11s
+2024-12-21 16:44:42,763 - INFO - 41: Time to fetch a minibatch of data: 0.11s
+2024-12-21 16:44:42,869 - INFO - 42: Time to fetch a minibatch of data: 0.11s
+2024-12-21 16:44:42,979 - INFO - 43: Time to fetch a minibatch of data: 0.11s
+2024-12-21 16:44:43,066 - INFO - 44: Time to fetch a minibatch of data: 0.08s
+2024-12-21 16:44:43,198 - INFO - 45: Time to fetch a minibatch of data: 0.12s
+2024-12-21 16:44:43,317 - INFO - 46: Time to fetch a minibatch of data: 0.12s
+2024-12-21 16:44:43,425 - INFO - 47: Time to fetch a minibatch of data: 0.11s
+2024-12-21 16:44:43,539 - INFO - 48: Time to fetch a minibatch of data: 0.10s
+2024-12-21 16:44:43,650 - INFO - 49: Time to fetch a minibatch of data: 0.11s
+2024-12-21 16:44:43,739 - INFO - 50: Time to fetch a minibatch of data: 0.09s
+2024-12-21 16:44:43,866 - INFO - 51: Time to fetch a minibatch of data: 0.13s
+2024-12-21 16:44:43,965 - INFO - 52: Time to fetch a minibatch of data: 0.10s
+2024-12-21 16:44:44,074 - INFO - 53: Time to fetch a minibatch of data: 0.11s
+2024-12-21 16:44:44,185 - INFO - 54: Time to fetch a minibatch of data: 0.11s
+2024-12-21 16:44:44,312 - INFO - 55: Time to fetch a minibatch of data: 0.13s
+2024-12-21 16:44:44,432 - INFO - 56: Time to fetch a minibatch of data: 0.12s
+2024-12-21 16:44:44,538 - INFO - 57: Time to fetch a minibatch of data: 0.11s
+2024-12-21 16:44:44,656 - INFO - 58: Time to fetch a minibatch of data: 0.12s
+2024-12-21 16:44:44,778 - INFO - 59: Time to fetch a minibatch of data: 0.12s
+2024-12-21 16:44:44,899 - INFO - 60: Time to fetch a minibatch of data: 0.12s
+2024-12-21 16:44:45,011 - INFO - 61: Time to fetch a minibatch of data: 0.11s
+2024-12-21 16:44:45,139 - INFO - 62: Time to fetch a minibatch of data: 0.13s
+2024-12-21 16:44:45,256 - INFO - 63: Time to fetch a minibatch of data: 0.11s
+2024-12-21 16:44:45,358 - INFO - 64: Time to fetch a minibatch of data: 0.10s
+2024-12-21 16:44:45,465 - INFO - 65: Time to fetch a minibatch of data: 0.11s
+2024-12-21 16:44:45,566 - INFO - 66: Time to fetch a minibatch of data: 0.10s
+2024-12-21 16:44:45,668 - INFO - 67: Time to fetch a minibatch of data: 0.10s
+2024-12-21 16:44:45,793 - INFO - 68: Time to fetch a minibatch of data: 0.11s
+2024-12-21 16:44:45,920 - INFO - 69: Time to fetch a minibatch of data: 0.13s
+2024-12-21 16:44:46,023 - INFO - 70: Time to fetch a minibatch of data: 0.10s
+2024-12-21 16:44:46,132 - INFO - 71: Time to fetch a minibatch of data: 0.11s
+2024-12-21 16:44:46,222 - INFO - 72: Time to fetch a minibatch of data: 0.09s
+2024-12-21 16:44:46,353 - INFO - 73: Time to fetch a minibatch of data: 0.13s
+2024-12-21 16:44:46,456 - INFO - 74: Time to fetch a minibatch of data: 0.10s
+2024-12-21 16:44:46,573 - INFO - 75: Time to fetch a minibatch of data: 0.12s
+2024-12-21 16:44:46,685 - INFO - 76: Time to fetch a minibatch of data: 0.11s
+2024-12-21 16:44:46,800 - INFO - 77: Time to fetch a minibatch of data: 0.12s
+2024-12-21 16:44:46,919 - INFO - 78: Time to fetch a minibatch of data: 0.11s
+2024-12-21 16:44:47,057 - INFO - 79: Time to fetch a minibatch of data: 0.14s
+2024-12-21 16:44:47,145 - INFO - 80: Time to fetch a minibatch of data: 0.09s
+2024-12-21 16:44:47,270 - INFO - 81: Time to fetch a minibatch of data: 0.13s
+2024-12-21 16:44:47,383 - INFO - 82: Time to fetch a minibatch of data: 0.11s
+2024-12-21 16:44:47,523 - INFO - 83: Time to fetch a minibatch of data: 0.13s
+2024-12-21 16:44:47,620 - INFO - 84: Time to fetch a minibatch of data: 0.10s
+2024-12-21 16:44:47,737 - INFO - 85: Time to fetch a minibatch of data: 0.12s
+2024-12-21 16:44:47,849 - INFO - 86: Time to fetch a minibatch of data: 0.11s
+2024-12-21 16:44:47,967 - INFO - 87: Time to fetch a minibatch of data: 0.12s
+2024-12-21 16:44:48,100 - INFO - 88: Time to fetch a minibatch of data: 0.13s
+2024-12-21 16:44:48,217 - INFO - 89: Time to fetch a minibatch of data: 0.12s
+2024-12-21 16:44:48,325 - INFO - 90: Time to fetch a minibatch of data: 0.11s
+2024-12-21 16:44:48,443 - INFO - 91: Time to fetch a minibatch of data: 0.12s
+2024-12-21 16:44:48,538 - INFO - 92: Time to fetch a minibatch of data: 0.09s
+2024-12-21 16:44:48,660 - INFO - 93: Time to fetch a minibatch of data: 0.11s
+2024-12-21 16:44:48,778 - INFO - 94: Time to fetch a minibatch of data: 0.10s
+2024-12-21 16:44:48,893 - INFO - 95: Time to fetch a minibatch of data: 0.11s
+2024-12-21 16:44:48,999 - INFO - 96: Time to fetch a minibatch of data: 0.11s
+2024-12-21 16:44:49,116 - INFO - 97: Time to fetch a minibatch of data: 0.12s
+2024-12-21 16:44:49,221 - INFO - 98: Time to fetch a minibatch of data: 0.10s
+2024-12-21 16:44:49,352 - INFO - 99: Time to fetch a minibatch of data: 0.13s
+2024-12-21 16:44:49,353 - INFO - Total IO Time: 11.44s
+2024-12-21 16:44:49,353 - INFO - Total images read per batch: 384
+2024-12-21 16:44:49,353 - INFO - Average Image IO Throughput: 3356.036
